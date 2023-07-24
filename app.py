@@ -155,7 +155,10 @@ if st.button("Fetch Data"):
             lambda x: x[:-11] if len(x) > 15 else x
         )
         user_data["userId"] = user_data["status"].apply(
-            lambda x: x[:-11] if len(x) > 15 else x
+            lambda x: x[:-12] if len(x) > 36 else None
+        )
+        user_data["Phone"] = user_data["status"].apply(
+            lambda x: x[:-13] if len(x) > 10 else None
         )
 
         @st.cache
