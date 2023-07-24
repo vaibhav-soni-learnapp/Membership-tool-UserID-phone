@@ -105,14 +105,14 @@ with col3:
 st.write("----")
 
 st.markdown(
-    "<h2 style='text-align: center; color: black;'>Get subscription status of LA users</h2>",
+    "<h2 style='text-align: center; color: black;'>Get Membership status of Email users</h2>",
     unsafe_allow_html=True,
 )
 
 st.write("----")
 # Code to get the list of users
 user_data = st.file_uploader(
-    'Upload a csv file with user Emails. Keep a single column with "Email" as header'
+    'Upload a csv file with User Emails. Keep a single column with "Email" as header'
 )
 
 
