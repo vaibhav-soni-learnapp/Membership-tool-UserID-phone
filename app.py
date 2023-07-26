@@ -140,11 +140,11 @@ if st.button("Fetch Data"):
 
         with col3:
             st.metric("Non-Paid Users", (user_data["status"] == "Non paid user").sum())
-            )
+            
 
         with col4:
             st.metric("Non LA User", (user_data["status"] == "Non LA User").sum())
-            )
+            
 
         st.write("")
         user_data["expiry_date"] = user_data["status"].apply(
