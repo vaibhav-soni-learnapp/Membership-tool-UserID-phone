@@ -143,10 +143,10 @@ if st.button("Fetch Data"):
 
 
         st.write("")
-        user_data["expiry_date"] = user_data["status"].apply(
+        user_data["Base_expiry_date"] = user_data["status"].apply(
             lambda x: x[-10:] if len(x) > 15 else None
         )
-        user_data["status"] = user_data["status"].apply(
+        user_data["Membership"] = user_data["status"].apply(
             lambda x: x[:-11] if len(x) > 15 else x
         )
 
