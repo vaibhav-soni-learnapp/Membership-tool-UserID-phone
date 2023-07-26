@@ -39,16 +39,6 @@ def fetch_userid(email):
 
 # If the user has subscribed to LearnApp or not
 def user_access(email):
-
-    userid = fetch_userid(email)
-
-    latest_expiry_date = None  # Default value
-
-    if userid != -1:
-        return userid, f"Paid User_{latest_expiry_date}"
-    else:
-        return userid, "Non LA User"
-        
     print(email)
     email = email.strip().lower()
 
@@ -88,23 +78,18 @@ def user_access(email):
                     break
 
         if flag == "active":
-            return f"Paid User_{latest_expiry_date}"
+            return userid, f"Paid User_{latest_expiry_date}"
         elif flag == "expired":
-            return f"Expired User_{latest_expiry_date}"
-
+            return userid, f"Expired User_{latest_expiry_date}"
         else:
-            return "Non paid user"
+            return userid, "Non paid user"
 
     except:
-        if userid != -1 and latest_expiry_date is not None:
-        return userid, f"Paid User_{latest_expiry_date}"
-    elif userid == -1:
-        return userid, "Non LA User"
-    else:
-        return userid, "Issue with user data"
+        if userid == -1:
+            return userid, "Non LA User"
+        else:
+            return userid, "Non paid user - issue"
 
-
-        
 
 # Frontend
 col1, col2, col3 = st.columns(3)
@@ -135,8 +120,6 @@ st.write("")
 # Code to get the subscription data of users
 if st.button("Fetch Data"):
 
-
-
     user_data = pd.read_csv(user_data)
 
     with st.spinner("Fetching Data From Kraken ..."):
@@ -156,11 +139,11 @@ if st.button("Fetch Data"):
 
         with col3:
             st.metric("Non-Paid Users", (user_data["status"] == "Non paid user").sum())
-            
+            )
 
         with col4:
             st.metric("Non LA User", (user_data["status"] == "Non LA User").sum())
-            
+            )
 
         st.write("")
         user_data["expiry_date"] = user_data["status"].apply(
@@ -168,12 +151,6 @@ if st.button("Fetch Data"):
         )
         user_data["status"] = user_data["status"].apply(
             lambda x: x[:-11] if len(x) > 15 else x
-        )
-        user_data["userId"] = user_data["status"].apply(
-            lambda x: x[:-12] if len(x) < 36 else None
-        )
-        user_data["Phone"] = user_data["status"].apply(
-            lambda x: x[:-13] if len(x) < 10 else None
         )
 
         @st.cache
