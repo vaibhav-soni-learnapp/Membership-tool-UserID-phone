@@ -130,20 +130,17 @@ if st.button("Fetch Data"):
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            st.metric("Paid Users", (user_data["status"].str.contains("Paid User").sum())
-            )
+            st.metric("Paid Users", user_data["status"].str.contains("Paid User").sum())
 
         with col2:
-            st.metric("Expired Users", (user_data["status"].str.contains("Expired User").sum())
-            )
+            st.metric("Expired Users", user_data["status"].str.contains("Expired User").sum())
 
         with col3:
             st.metric("Non-Paid Users", (user_data["status"] == "Non paid user").sum())
-            )
 
         with col4:
             st.metric("Non LA User", (user_data["status"] == "Non LA User").sum())
-            )
+
 
         st.write("")
         user_data["expiry_date"] = user_data["status"].apply(
