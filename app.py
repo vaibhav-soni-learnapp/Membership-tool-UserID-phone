@@ -128,14 +128,14 @@ st.write("")
 # Code to get the subscription data of users
 if st.button("Fetch Data"):
 
-user_data["userId"], user_data["status"] = zip(*user_data["Email"].apply(user_access))
+
 
     user_data = pd.read_csv(user_data)
 
     with st.spinner("Fetching Data From Kraken ..."):
         st.write("-----")
 
-        user_data["status"] = user_data["Email"].apply(user_access)
+        user_data["userId"], user_data["status"] = zip(*user_data["Email"].apply(user_access))
 
         col1, col2, col3, col4 = st.columns(4)
 
