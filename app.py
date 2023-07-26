@@ -39,6 +39,13 @@ def fetch_userid(email):
 
 # If the user has subscribed to LearnApp or not
 def user_access(email):
+
+    userid = fetch_userid(email)
+    if userid != -1:
+        return userid, f"Paid User_{latest_expiry_date}"
+    else:
+        return userid, "Non LA User"
+        
     print(email)
     email = email.strip().lower()
 
@@ -120,6 +127,8 @@ st.write("")
 
 # Code to get the subscription data of users
 if st.button("Fetch Data"):
+
+user_data["userId"], user_data["status"] = zip(*user_data["Email"].apply(user_access))
 
     user_data = pd.read_csv(user_data)
 
