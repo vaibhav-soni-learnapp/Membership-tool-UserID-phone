@@ -41,6 +41,9 @@ def fetch_userid(email):
 def user_access(email):
 
     userid = fetch_userid(email)
+
+    latest_expiry_date = None  # Default value
+
     if userid != -1:
         return userid, f"Paid User_{latest_expiry_date}"
     else:
@@ -93,11 +96,15 @@ def user_access(email):
             return "Non paid user"
 
     except:
-        if userid == -1:
-            return "Non LA User"
-        else:
-            return "Non paid user - issue"
+        if userid != -1 and latest_expiry_date is not None:
+        return userid, f"Paid User_{latest_expiry_date}"
+    elif userid == -1:
+        return userid, "Non LA User"
+    else:
+        return userid, "Issue with user data"
 
+
+        
 
 # Frontend
 col1, col2, col3 = st.columns(3)
